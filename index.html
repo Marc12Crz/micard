@@ -1,121 +1,196 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edson Marcelo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edson Marcelo — Portfolio</title>
   <style>
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100dvh;
-      margin: 0;
-      background-image: url('https://i.postimg.cc/x9MyhM3D/react-system.webp');
-      background-size: cover;
-      background-position: center;
-      color: white;
-      font-family: monospace;
+    :root{
+      --bg:#0b1220;          /* fondo */
+      --card:#0f172a;        /* cards */
+      --muted:#94a3b8;       /* texto secundario */
+      --brand:#23b5e8;       /* acento */
+      --ring:rgba(35,181,232,.35);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:radial-gradient(1200px 600px at 80% -10%, rgba(35,181,232,.05), transparent),
+                 radial-gradient(800px 500px at -20% 110%, rgba(35,181,232,.06), transparent),
+                 var(--bg);
+      color:#e5e7eb;
+      font: 14px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial;
     }
 
-    main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      max-width: 320px;
-      padding: 16px;
-      border-radius: 16px;
-      box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.5);
-      background-color: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(4px);
-      text-align: center;
-    }
+    /* Layout: sidebar + content */
+    .shell{display:grid; grid-template-columns: 320px 1fr; gap:24px; max-width:1100px; margin:48px auto; padding:0 20px}
 
-    img {
-      width: 224px;
-      height: 224px;
-      border-radius: 50%;
-    }
+    /* Sidebar */
+    .side{position:sticky; top:24px; align-self:start; background:rgba(15,23,42,.6); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:20px}
+    .avatar{display:flex; align-items:center; gap:14px}
+    .avatar img{width:72px; height:72px; border-radius:50%; object-fit:cover; box-shadow:0 0 0 4px var(--ring)}
+    .name{margin:0; font-weight:700; font-size:20px}
+    .role{margin:2px 0 0 0; color:var(--muted); font-size:13px}
 
-    h1 {
-      font-size: 18px;
-      margin: 0;
-    }
+    .stack{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 0}
+    .chip{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); padding:6px 10px; border-radius:999px; font-weight:600}
 
-    h2 {
-      font-size: 16px;
-      color: silver;
-      margin: 0;
-    }
+    .links{display:grid; gap:8px; margin-top:16px}
+    .btn{display:flex; align-items:center; justify-content:center; gap:8px; padding:10px 12px; border-radius:10px; background:linear-gradient(180deg, rgba(35,181,232,.18), rgba(35,181,232,.08)); color:white; text-decoration:none; font-weight:700; border:1px solid rgba(35,181,232,.35)}
+    .btn:hover{filter:brightness(1.1)}
 
-    p {
-      font-size: 14px;
-      margin: 0;
-    }
+    .nav{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+    .nav a{color:#cbd5e1; text-decoration:none; padding:6px 10px; border-radius:8px}
+    .nav a:hover{background:rgba(255,255,255,.06); color:white}
 
-    ul {
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-    }
+    /* Content */
+    .content{display:grid; gap:16px}
+    .section{background:rgba(15,23,42,.6); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:18px}
+    .section h3{margin:0 0 8px; font-size:16px; letter-spacing:.2px}
+    .muted{color:var(--muted)}
 
-    .badge {
-      padding: 4px;
-      border-radius: 8px;
-      background-color: #23b5e8;
-      color: black;
-      font-weight: 700;
-      transition: box-shadow 0.25s, filter 0.25s;
+    /* Cards list */
+    .list{display:grid; grid-template-columns: repeat( auto-fit, minmax(260px,1fr) ); gap:12px}
+    .card{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:14px}
+    .card b{display:block; font-size:14px; margin-bottom:4px}
+    .tech{margin-top:8px; display:flex; flex-wrap:wrap; gap:6px}
+    .tag{font-size:12px; padding:4px 8px; border-radius:999px; background:rgba(35,181,232,.12); border:1px solid rgba(35,181,232,.35)}
 
-      &:hover {
-        box-shadow: 0 2px 4px 0 #23b5e8;
-        filter: brightness(1.25);
-      }
-    }
+    /* Simple link list */
+    .linklist{display:grid; gap:8px}
+    .linkitem{display:flex; justify-content:space-between; align-items:center; gap:8px; padding:10px 12px; border-radius:10px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08)}
+    .linkitem a{color:#e5e7eb; text-decoration:none}
+    .linkitem small{color:var(--muted)}
 
-    .link {
-      color: white;
-      font-weight: 700;
-      transition: color 0.25s;
-
-      &:hover {
-        color: #23b5e8;
-      }
+    @media (max-width: 860px){
+      .shell{grid-template-columns: 1fr}
+      .side{position:static}
     }
   </style>
 </head>
-
 <body>
-  <main>
-    <img src="https://img.freepik.com/vector-premium/cute-programador-depuracion-codigo-vector-dibujos-animados_865091-13403.jpg"
-      alt="Edson Marcelo" width="224" height="224">
-    <h1>💝 Edson Marcelo <sup>19</sup> 💝</h1>
-    <h2>🛡️ Backend Developer en camino | 💻 Amante de la lógica y los datos</h2>
-    <p>
-      👨‍💻 Apasionado por la programación backend. Me gusta aprender cosas nuevas, mejorar mi lógica y construir soluciones útiles para el mundo. 🚀
-    </p>
-    <ul>
-      <li class="badge">🐍 Python</li>
-      <li class="badge">🛠️ Django</li>
-      <li class="badge">📦 SQL</li>
-      <li class="badge">🧠 Lógica</li>
-      <li class="badge">🔧 Spring Boot</li>
-    </ul>
-    <ul>
-      <li>
-        <a href="https://github.com/Marc12Crz" class="link" target="_blank">GitHub</a>
-      </li>
-      <li>
-        <a href="https://www.linkedin.com/in/marceloedson/" class="link" target="_blank">LinkedIn</a>
-      </li>
-    </ul>
-  </main>
-</body>
+  <div class="shell">
+    <!-- SIDEBAR -->
+    <aside class="side">
+      <div class="avatar">
+        <img src="https://img.freepik.com/vector-premium/cute-programador-depuracion-codigo-vector-dibujos-animados_865091-13403.jpg" alt="Edson Marcelo" />
+        <div>
+          <h1 class="name">Edson Marcelo <sup>19</sup></h1>
+          <p class="role">Backend en formación · Lógica & Datos</p>
+        </div>
+      </div>
 
+      <div class="stack">
+        <span class="chip">Python</span>
+        <span class="chip">Django</span>
+        <span class="chip">SQL</span>
+        <span class="chip">Spring Boot</span>
+        <span class="chip">APIs</span>
+      </div>
+
+      <div class="links">
+        <a class="btn" href="https://github.com/Marc12Crz" target="_blank" rel="noreferrer noopener">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/marceloedson/" target="_blank" rel="noreferrer noopener">LinkedIn</a>
+        <a class="btn" href="mailto:qwertmarcelo3@gmail.com">qwertmarcelo3@gmail.com</a>
+      </div>
+
+      <nav class="nav" aria-label="Secciones">
+        <a href="#perfil">Perfil</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#noticias">Noticias</a>
+        <a href="#contactos">Contactos</a>
+      </nav>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="content">
+      <!-- PERFIL -->
+      <section id="perfil" class="section">
+        <h3>Perfil profesional</h3>
+        <p class="muted">Estudiante de Diseño y Desarrollo de Software (TECSUP). Enfoque en backend, APIs seguras y datos. Trabajo con Git y metodologías ágiles.</p>
+        <div class="list" style="margin-top:10px">
+          <div class="card">
+            <b>Competencias</b>
+            <p class="muted">Backend/API · Integración REST · Git/GitHub · Bootstrap/Responsive · Scrum · Resolución de problemas · Trabajo en equipo · Aprendizaje continuo.</p>
+          </div>
+          <div class="card">
+            <b>Objetivo</b>
+            <p class="muted">Primer rol como Backend Jr. Para especializarme en <b>ciberseguridad aplicada</b> e integrar <b>IA</b> para monitoreo y detección de anomalías.</p>
+          </div>
+          <div class="card">
+            <b>CV / Perfil</b>
+            <p><a href="https://www.linkedin.com/in/marceloedson/" target="_blank" rel="noreferrer noopener">Ver en LinkedIn</a></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROYECTOS -->
+      <section id="proyectos" class="section">
+        <h3>Proyectos</h3>
+        <div class="list">
+          <div class="card">
+            <b>PulseSafe · Pasantía TECSUP</b>
+            <p class="muted">App móvil que registra pulsaciones y ayuda a prevenir riesgos.</p>
+            <div class="tech"><span class="tag">React</span><span class="tag">Kotlin</span><span class="tag">Spring Boot</span></div>
+          </div>
+          <div class="card">
+            <b>PawFriends · Adopción responsable</b>
+            <p class="muted">Conecta albergues con adoptantes; panel admin y gestión de mascotas.</p>
+            <div class="tech"><span class="tag">Django</span><span class="tag">Spring Boot</span><span class="tag">React</span></div>
+          </div>
+          <div class="card">
+            <b>MarketExpress · Integrador Marketplace</b>
+            <p class="muted">Flujo de compra integrado con API REST. Diseño responsive.</p>
+            <div class="tech"><span class="tag">Laravel</span><span class="tag">MySQL</span><span class="tag">Bootstrap</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOTICIAS -->
+      <section id="noticias" class="section">
+        <h3>Noticias</h3>
+        <div class="linklist">
+          <div class="linkitem">
+            <div>
+              <a href="#" title="Trends">ES · Tendencias en ciberseguridad para devs</a>
+              <div><small class="muted">OAuth2/OIDC · SAST/DAST · Zero‑Trust</small></div>
+            </div>
+            <small>2 min</small>
+          </div>
+          <div class="linkitem">
+            <div>
+              <a href="#" title="AI QA">ES · IA en pruebas de software</a>
+              <div><small class="muted">Casos de prueba y priorización de bugs</small></div>
+            </div>
+            <small>2 min</small>
+          </div>
+          <div class="linkitem">
+            <div>
+              <a href="#" title="Anomaly">EN · AI for anomaly detection in APIs</a>
+              <div><small class="muted">Baselines de tráfico y alertas inteligentes</small></div>
+            </div>
+            <small>2 min</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACTOS -->
+      <section id="contactos" class="section">
+        <h3>Contactos</h3>
+        <div class="list">
+          <div class="card">
+            <b>Redes y correo</b>
+            <p><a href="mailto:qwertmarcelo3@gmail.com">qwertmarcelo3@gmail.com</a> · <a href="https://github.com/Marc12Crz" target="_blank" rel="noreferrer noopener">GitHub</a> · <a href="https://www.linkedin.com/in/marceloedson/" target="_blank" rel="noreferrer noopener">LinkedIn</a></p>
+          </div>
+          <div class="card">
+            <b>Evidencias de networking</b>
+            <p class="muted">Agrega capturas o enlaces a interacciones con comunidades, docentes/mentores y proyectos colaborativos.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
 </html>
